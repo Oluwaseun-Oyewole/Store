@@ -1,27 +1,47 @@
-
 var updateBtns = document.getElementsByClassName('update-cart')
 
+for (i = 0; i < updateBtns.length; i++) {
+	updateBtns[i].addEventListener('click', function(){
+		var productId = this.dataset.product
+		var action = this.dataset.action
+		console.log('productId:', productId, 'Action:', action)
+		console.log('USER:', user)
 
-for(var i = 0; i < updateBtns.length; i++){
+		if (user == 'AnonymousUser'){
+			addCookieItem(productId, action)
+		}else{
+			updateUserOrder(productId, action)
+		}
+	})
+}
 
-    updateBtns[i].addEventListener('click', function(){
+function addCookieItem(productId, action){
+    console.log('User is not logged in')
 
-        var productId = this.dataset.product
-        var action = this.dataset.action
+    if(action == 'add'){
+        if(cart[productId] == undefined){
+            cart[productId] = {'quantity': 1}
+        }
+        else{
+            cart[productId]['quantity'] += 1
+        }
+    }
+    if(action == 'remove'){
+        cart[productId]['quantity'] -= 1
 
-    console.log('productId:', productId, 'action:', action)
-    console.log('user:', user)
-
-    if (user === 'AnonymousUser'){
-              console.log('Not logged in ')}
-    else {
-               updateUserOrder()
-               }
-
-    })
+        if(cart[productId]['quantity'] <=0 ){
+            console.log('remove item')
+            delete cart[productId]
+        }
+    }
+    console.log('Cart:', cart)
+//    for setting the cookies
+    document.cookie = 'cart = ' + JSON.stringify(cart) + ";domain=;path=/"
+    location.reload()
 }
 
 
+//getting json data from update_item url
 function updateUserOrder(productId, action){
 	console.log('User is authenticated, sending data...')
 
@@ -31,20 +51,16 @@ function updateUserOrder(productId, action){
 			method:'POST',
 			headers:{
 				'Content-Type':'application/json',
-
-
-//				for form verification
 				'X-CSRFToken':csrftoken,
 			},
 			body:JSON.stringify({'productId':productId, 'action':action})
 		})
-
 		.then((response) => {
 		   return response.json();
 		})
-
 		.then((data) => {
-            console.log('data:', data)
-            location.reload()
+		    location.reload()
 		});
 }
+
+
