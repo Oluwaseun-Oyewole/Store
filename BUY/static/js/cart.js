@@ -15,6 +15,7 @@ for (i = 0; i < updateBtns.length; i++) {
 	})
 }
 
+//for user that is not logged in
 function addCookieItem(productId, action){
     console.log('User is not logged in')
 
@@ -62,5 +63,3 @@ function updateUserOrder(productId, action){
 		    location.reload()
 		});
 }
-
-

@@ -113,7 +113,6 @@
 
 	var shipping = '{{ order.shipping }}'
 
-
 	if(shipping == 'False'){
 		document.getElementById('shipping-info').innerHTML = ''
 	}
@@ -131,7 +130,6 @@
 	}
 
 	let form = document.getElementById('form')
-
 	form.addEventListener('submit', (e) => {
 		e.preventDefault();
 		console.log('form-submitted.....')
@@ -167,7 +165,6 @@
 			shippingInfo.city = form.city.value
 			shippingInfo.state = form.state.value
 			shippingInfo.zipcode = form.zipcode.value
-
 		}
 
 		if( user == 'AnonymousUser'){

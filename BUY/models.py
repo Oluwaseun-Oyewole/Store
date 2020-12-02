@@ -9,6 +9,7 @@ class Customer(models.Model):
     def __str__(self):
         return f'{self.name}'
 
+
 class Product(models.Model):
     name =models.CharField(max_length=250, null=True)
     price = models.DecimalField(max_digits=7, decimal_places=2)

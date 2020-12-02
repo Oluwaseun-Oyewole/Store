@@ -34,7 +34,6 @@ def checkout(request):
     context = {'items': items, 'order': order, 'cartItems': cartItems}
     return render(request, 'BUY/checkout.html', context)
 
-
 def updateItem(request):
    data = json.loads(request.body)
    productId = data['productId']
@@ -76,6 +75,8 @@ def processOrder(request):
     total = float(data['form']['total'])
     order.transaction_id = transaction_id
 
+
+    # to check if the total passed on the front end = total on the backend
     if total == float(order.get_cart_total):
         order.complete = True
     order.save()
