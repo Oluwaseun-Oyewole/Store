@@ -1,1 +1,1 @@
-This is an ecommerce website that is built with Javascript and Python django.
+e-commerce store
